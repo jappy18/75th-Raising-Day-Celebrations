@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Page Flip</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .image-section {
+      width: 90%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .image-section img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .book {
+      position: relative;
+      width: 90%; /* Fixed width to match static image width */
+      max-width: 800px;
+      height: auto;
+      margin-bottom: 20px;
+      aspect-ratio: 4 / 3; /* Adjust based on your image's aspect ratio */
+      perspective: 1500px;
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: contain; /* Ensures images are correctly scaled */
+      background-position: center;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 2s ease; /* Slower flipping speed */
+    }
+
+    .page:nth-child(1) { background-image: url('https://drive.google.com/uc?id=1GFpNlSU4CIpcVDNhU2t8n54N14rFT86Y'); z-index: 7; }
+    .page:nth-child(2) { background-image: url('https://drive.google.com/uc?id=1ht1c_TbCPcTYwhg-KRyYMy-Un6uofkll-id'); z-index: 6; }
+    .page:nth-child(3) { background-image: url('https://drive.google.com/uc?id=1diOFbJb0gxnWPB3OYxti9TpRJj9u-Mxq-id'); z-index: 5; }
+    .page:nth-child(4) { background-image: url('https://drive.google.com/uc?id=1wM5_VlaOU-qtPrCAv6HPlxFsVD9cWU9y'); z-index: 4; }
+    .page:nth-child(5) { background-image: url('https://drive.google.com/uc?id=1qzNXomzHd6FcH_Lx9FqLNg7i8w4n47Jg'); z-index: 3; }
+    .page:nth-child(6) { background-image: url('https://drive.google.com/uc?id=1LbLsnRGg-o-ojIDCr8jIxzZTPDYOp3T0'); z-index: 2; }
+    .page:nth-child(7) { background-image: url('https://drive.google.com/uc?id=1AfOPT8m9OxdZf9Ks240FEzVQRH_ZBCx2'); z-index: 1; }
+
+    .page.flipped {
+      transform: rotateY(-180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Four Images Above -->
+    <div class="image-section">
+      <img src="https://drive.google.com/uc?id=1l5ySjdQIsNH9cN4XjhYIrrzwK6YcKCSl" alt="Image 1">
+      <img src="https://drive.google.com/uc?id=1ET4oyU2Jw-SZ7p7HV-c7Q2JytXcSHbIf" alt="Image 2">
+      <img src="https://drive.google.com/uc?id=1TGsVNqfzgG-cGxemdwY1T3z-ZAP-YjDY" alt="Image 3">
+      <img src="https://drive.google.com/uc?id=11W1TyT7v_p7jlCumqBbhlxeBj6d1U4PZ" alt="Image 4">
+    </div>
+
+    <!-- Flippable Pages Section -->
+    <div class="book">
+      <div class="page" data-page="1"></div>
+      <div class="page" data-page="2"></div>
+      <div class="page" data-page="3"></div>
+      <div class="page" data-page="4"></div>
+      <div class="page" data-page="5"></div>
+      <div class="page" data-page="6"></div>
+      <div class="page" data-page="7"></div>
+    </div>
+
+    <!-- Two Images Below -->
+    <div class="image-section">
+      <img src="https://drive.google.com/uc?id=1eFuaWatusvQOvGepMp9yYTmHTjNBXMCQ" alt="Bottom Image 1">
+      <img src="https://drive.google.com/uc?id=1btpKFXzhDiknnxhKvm0iYNOJhbYbaoOF" alt="Bottom Image 2">
+    </div>
+  </div>
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+    let currentPage = 0;
+
+    pages.forEach((page, index) => {
+      page.addEventListener('click', () => {
+        if (index === currentPage) {
+          // Flip the current page
+          page.classList.add('flipped');
+          currentPage++;
+        } else if (index === currentPage - 1) {
+          // Unflip the previous page
+          page.classList.remove('flipped');
+          currentPage--;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
